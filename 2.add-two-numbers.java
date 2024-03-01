@@ -17,55 +17,28 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode l1_ptr = l1;
-        ListNode l2_ptr = l2;
+        // 进位
         int carry = 0;
-        ListNode head = new ListNode();
-        ListNode p = head; 
-        while(l1_ptr != null && l2_ptr != null){
-            ListNode node = new ListNode();
-            if(l1_ptr.val + l2_ptr.val + carry >= 10){
-                p.next = new ListNode(l1_ptr.val + l2_ptr.val + carry - 10);
+        // 链表头节点
+        ListNode head = new ListNode(), p = head; 
+        // 只要没有把两个链表遍历完成或者还有进位
+        while(l1 != null || l2 != null || carry != 0){
+            // 存在进位
+            if((l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry >= 10){
+                p.next = new ListNode((l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry - 10);
                 carry = 1;
             }else{
-                p.next = new ListNode(l1_ptr.val + l2_ptr.val + carry);
+                p.next = new ListNode((l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry);
                 carry = 0;
             }
+
+            // 指针移动
             p = p.next;
-            l1_ptr = l1_ptr.next;
-            l2_ptr = l2_ptr.next;
+            if(l1 != null)
+                l1 = l1.next;
+            if(l2 != null)
+                l2 = l2.next;
         }
-
-        if(l1_ptr != null){
-            while(l1_ptr != null){
-                if(l1_ptr.val + carry >= 10){
-                    p.next = new ListNode(l1_ptr.val + carry - 10);
-                    carry = 1;
-                }else{
-                    p.next = new ListNode(l1_ptr.val + carry);
-                    carry = 0;
-                }
-                p = p.next;
-                l1_ptr = l1_ptr.next;
-            }
-        }
-
-        if(l2_ptr != null){
-            while(l2_ptr != null){
-                if(l2_ptr.val + carry >= 10){
-                    p.next = new ListNode(l2_ptr.val + carry - 10);
-                    carry = 1;
-                }else{
-                    p.next = new ListNode(l2_ptr.val + carry);
-                    carry = 0;
-                }
-                p = p.next;
-                l2_ptr = l2_ptr.next;
-            }
-        }
-
-        if(carry == 1)
-            p.next = new ListNode(1);
 
         return head.next;
     }
