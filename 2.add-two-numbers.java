@@ -23,7 +23,7 @@ class Solution {
         ListNode head = new ListNode(), p = head; 
         // 只要没有把两个链表遍历完成或者还有进位
         while(l1 != null || l2 != null || carry != 0){
-            // 存在进位
+            // 计算进位
             if((l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry >= 10){
                 p.next = new ListNode((l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry - 10);
                 carry = 1;
@@ -40,6 +40,7 @@ class Solution {
                 l2 = l2.next;
         }
 
+        // 返回头节点的下一个节点
         return head.next;
     }
 }
