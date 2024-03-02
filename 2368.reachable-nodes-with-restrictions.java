@@ -21,13 +21,10 @@ class Solution {
         Queue<Integer> q = new LinkedList<Integer>();
 
         // 限制节点的集合
-        Set<Integer> set = new HashSet<Integer>();
-        for(int i : restricted){
-            set.add(i);
-        }
-
-        // 已经遍历过的集合
         Set<Integer> traversed = new HashSet<Integer>();
+        for(int i : restricted){
+            traversed.add(i);
+        }
 
         int res = 0;
         q.add(0);
@@ -40,7 +37,7 @@ class Solution {
             // 遍历edges数组
             for(int i : adj[node]){
                 // 判断是否是已经遍历过的或者受限节点
-                if(!traversed.contains(i) && !set.contains(i)){
+                if(!traversed.contains(i)){
                     q.add(i);
                     res++;
                 }
